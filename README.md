@@ -5,9 +5,9 @@
 - Generate personalized cover letters using Gemini AI
 - Get smart reminders for follow-ups
 
-> 🚧 The Chrome extension is currently under development. This repo contains the completed landing page
-## 🧪 Upcoming (Extension - Under Development)
-- 🧠 Gemini AI–powered cover letter generator
-- 🕵️ Internship auto-tracker from LinkedIn/Indeed
-- 📬 Smart follow-up generator + reminders
-- 🧾 Supabase-powered internship CRM
+>  The Chrome extension is currently under development. This repo contains the completed landing page
+##  Upcoming (Extension - Under Development)
+- Gemini AI–powered cover letter generator
+- Internship auto-tracker from LinkedIn/Indeed
+- Smart follow-up generator + reminders
+- Supabase-powered internship CRM
