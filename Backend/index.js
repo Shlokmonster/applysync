@@ -8,26 +8,20 @@ dotenv.config();
 
 const app = express();
 
-// Configure CORS with a simpler approach
-const corsOptions = {
-  origin: [
-    'http://127.0.0.1:5500',
-    'http://localhost:5500',
-    'http://127.0.0.1:3000',
-    'http://localhost:3000',
-    'https://applysync.netlify.app',
-    'https://applysync-ceyo.onrender.com'
-  ],
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true
-};
-
-// Apply CORS middleware
-app.use(cors(corsOptions));
-
-// Handle preflight requests
-app.options('*', cors(corsOptions));
+// Enable CORS for all routes
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+  res.header('Access-Control-Allow-Credentials', true);
+  
+  // Handle preflight
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
+  }
+  
+  next();
+});
 app.use(express.json());
 
 // MongoDB Connection
