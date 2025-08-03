@@ -14,27 +14,35 @@ const allowedOrigins = [
   'http://localhost:5500',
   'http://127.0.0.1:3000',
   'http://localhost:3000',
-  'https://applysync.netlify.app'
+  'https://applysync.netlify.app',
+  'https://applysync-ceyo.onrender.com'
 ];
 
-const corsOptions = {
-  origin: function (origin, callback) {
-    // Allow requests with no origin (like mobile apps, curl, postman)
-    if (!origin) return callback(null, true);
-    
-    if (allowedOrigins.indexOf(origin) === -1) {
-      const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
-      return callback(new Error(msg), false);
-    }
-    return callback(null, true);
-  },
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true
+// Simple CORS middleware function
+const corsMiddleware = (req, res, next) => {
+  const origin = req.headers.origin;
+  
+  // Check if the origin is in the allowed list or if it's a preflight request
+  if (allowedOrigins.includes(origin) || !origin) {
+    res.header('Access-Control-Allow-Origin', origin || '*');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    res.header('Access-Control-Allow-Credentials', 'true');
+  }
+  
+  // Handle preflight requests
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
+  }
+  
+  next();
 };
 
-// Middleware
-app.use(cors(corsOptions));
+// Apply CORS middleware
+app.use(corsMiddleware);
+
+// Enable CORS pre-flight for all routes
+app.options('*', corsMiddleware);
 app.use(express.json());
 
 // MongoDB Connection
