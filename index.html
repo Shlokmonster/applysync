@@ -929,7 +929,7 @@ document.getElementById('subscribeForm').addEventListener('submit', async (e) =>
         submitBtn.innerHTML = 'Subscribing...';
         
         // Send data to backend
-        const response = await fetch('http://127.0.0.1:3000/subscribe', {
+        const response = await fetch('https://applysync-ceyo.onrender.com/subscribe', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -990,7 +990,7 @@ document.getElementById('earlyAccessForm').addEventListener('submit', async (e) 
         submitBtn.innerHTML = 'Joining...';
         
         // Send data to backend
-        const response = await fetch('http://127.0.0.1:3000/subscribe', {
+        const response = await fetch('https://applysync-ceyo.onrender.com/subscribe', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
